@@ -439,44 +439,6 @@ configure(
 
 ## 📚 Advanced Examples
 
-### Multi-Agent Enterprise Setup
-
-```python
-from glasstape import configure, govern, set_context, GovernanceError
-
-# Configure different agents
-finance_config = configure(
-    agent_id="finance-agent",
-    policy_dir="./policies",
-    llm_provider="openai",
-    llm_api_key=os.getenv("OPENAI_API_KEY"),
-    llm_model="gpt-4o-mini"
-)
-
-service_config = configure(
-    agent_id="service-agent",
-    policy_dir="./policies"
-)
-
-# Finance agent with strict governance
-@govern("finance.payments.v1", enforcement="blocking")
-def process_payment(amount: float, recipient: str):
-    return payment_service.charge(amount, recipient)
-
-# Service agent with monitoring
-@govern("service.data_access.v1", enforcement="advisory")
-def get_customer_data(customer_id: str):
-    return database.query_customer(customer_id)
-
-# Set context per request
-set_context(user_id="analyst-123", user_role="analyst")
-
-try:
-    result = process_payment(5000.0, "suspicious-vendor")
-except GovernanceError as e:
-    print(f"Payment blocked: {e}")
-```
-
 ### Advanced Policy: Rate Limiting
 
 ```yaml
@@ -606,13 +568,6 @@ configure(mode="local")
 configure(mode="platform", platform_url="...", api_key="...")
 ```
 
-### Is this production-ready?
-
-Yes! Local mode (v1.0) is production-ready today with:
-- Type safety (fully typed Python SDK)
-- Error handling (clear exceptions, fail-closed security)
-- Performance (sub-10ms enforcement)
-- Security (Ed25519 signatures, Cerbos WASM)
 
 ---
 
@@ -651,27 +606,8 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🚀 Production Pilots
-
-GlassTape is in active private pilots with:
-
-- **Financial Services**: Enforcing transaction limits and fraud detection on payment-processing agents
-- **Content Platforms**: Creating agentic content guardrails with cryptographically verifiable security enforcement
-- **Healthcare Systems**: HIPAA-compliant PHI access controls for AI diagnostic agents
-
-The SDK is production-ready for local mode. Platform mode (centralized management) is coming in v2.0.
-
----
-
-## 🆘 Support
-
-- **Documentation**: [docs.glasstape.ai](https://docs.glasstape.ai)
-- **Policy Builder**: [github.com/GlassTape/glasstape-policy-builder-mcp](https://github.com/GlassTape/glasstape-policy-builder-mcp)
-- **Issues**: [GitHub Issues](https://github.com/glasstape/glasstape-sdk-python/issues)
+Released under the [Apache 2.0 License](LICENSE).
+© 2025 GlassTape, Inc.
 
 ---
 
