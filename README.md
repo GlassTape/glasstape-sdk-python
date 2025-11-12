@@ -556,18 +556,6 @@ No! Local mode works completely offline. Perfect for air-gapped environments.
 
 Sub-10ms per enforcement with Cerbos WASM. Your agents won't notice.
 
-### How do I migrate from local to platform mode?
-
-Change one line in config. Your decorators and policies don't change:
-
-```python
-# Local (current)
-configure(mode="local")
-
-# Platform (v2.0)
-configure(mode="platform", platform_url="...", api_key="...")
-```
-
 
 ---
 
