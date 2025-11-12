@@ -1,6 +1,6 @@
 # 🧠 GlassTape — Zero-Trust Runtime Governance for AI Agents
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Cerbos](https://img.shields.io/badge/Cerbos-WASM-green.svg)](https://cerbos.dev/)
 [![Tests](https://img.shields.io/badge/tests-passing-green.svg)](https://github.com/glasstape/glasstape-sdk-python/actions)
@@ -8,9 +8,9 @@
 > **Zero-trust runtime governance for AI agents — enforce policies at the reasoning-to-action boundary.**  
 > Intercept every agent tool call (payments, DB, API) and enforce declarative policies with sub-10ms evaluation and cryptographic decision receipts (Ed25519).
 
-**TL;DR:** GlassTape is a Python SDK that adds `@govern` decorators to AI agent tools for policy enforcement. Works offline with Cerbos WASM. Includes Policy Builder MCP for natural language → YAML policy generation. Prevents OWASP Top 10 AI vulnerabilities with cryptographic audit trails.
+**TL;DR:** GlassTape v1.0 is a Python SDK that adds `@govern` decorators to AI agent tools for policy enforcement. Works offline with Cerbos WASM. Includes Policy Builder MCP for natural language → YAML policy generation. Prevents OWASP Top 10 AI vulnerabilities with cryptographic audit trails.
 
-**Quick links:** [Quick Start](#-quick-start-30s) · [Examples](examples/) · [Policy Builder MCP](https://github.com/GlassTape/glasstape-policy-builder-mcp) · [OWASP Mitigation](#%EF%B8%8F-ai-agent-security-owasp-top-10-mitigation)
+**Quick links:** [Quick Start](#-quick-start-30s) · [Policy Builder MCP](https://github.com/GlassTape/agent-policy-builder-mcp) · [OWASP Mitigation](#%EF%B8%8F-ai-agent-security-owasp-top-10-mitigation)
 
 ---
 
@@ -88,7 +88,7 @@ except GovernanceError as e:
 
 **Option A: Use Policy Builder (Recommended)**
 
-Use [GlassTape Policy Builder](https://github.com/GlassTape/glasstape-policy-builder-mcp) — an AI-powered MCP server that transforms natural language into production-ready Cerbos policies.
+Use [GlassTape Policy Builder](https://github.com/GlassTape/agent-policy-builder-mcp) — an AI-powered MCP server that transforms natural language into production-ready Cerbos policies.
 
 **In your IDE (Cursor, Claude Desktop, AWS Q):**
 ```
@@ -124,7 +124,7 @@ resourcePolicy:
 
 ```mermaid
 flowchart LR
-    A[AI Agent] -->|Tool Call| B[@govern Decorator]
+    A[AI Agent] -->|Tool Call| B["@govern Decorator"]
     B -->|Extract Params| C[Policy Engine]
     C -->|Evaluate| D{Cerbos WASM}
     D -->|Allow| E[Execute Tool]
