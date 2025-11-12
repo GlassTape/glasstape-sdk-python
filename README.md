@@ -40,21 +40,6 @@ GlassTape separates governance from application code. Every tool call is evaluat
 - 🛡️ **Framework-agnostic** (LangChain, CrewAI, Strands, custom agents)
 - 📝 **Survives migrations** (policies separate from code)
 
-### 🛡️ AI Agent Security (OWASP Top 10 Mitigation)
-
-GlassTape directly addresses critical AI agent vulnerabilities:
-
-- **LLM01 - Prompt Injection**: Policy enforcement at tool boundary, immune to prompt manipulation
-- **LLM02 - Insecure Output Handling**: Cryptographic receipts prevent tampering with decision logs
-- **LLM03 - Training Data Poisoning**: Runtime governance independent of model training
-- **LLM04 - Model Denial of Service**: Rate limiting and resource controls via policies
-- **LLM05 - Supply Chain Vulnerabilities**: Framework-agnostic design reduces vendor lock-in
-- **LLM06 - Sensitive Information Disclosure**: Field-level access controls and PII protection
-- **LLM07 - Insecure Plugin Design**: Mandatory governance for all tool calls via `@govern`
-- **LLM08 - Excessive Agency**: Granular permission controls and approval workflows
-- **LLM09 - Overreliance**: Human-in-the-loop policies and escalation rules
-- **LLM10 - Model Theft**: Audit trails track all agent interactions with cryptographic proof
-
 ---
 
 ## 🚀 Quick Start (30s)
