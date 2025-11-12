@@ -605,7 +605,4 @@ Released under the [Apache 2.0 License](LICENSE).
 
 *Zero-trust governance at the reasoning-to-action boundary.*
 
-
-[Get Started](#-quick-start-30s) · [Star on GitHub](https://github.com/glasstape/glasstape-sdk-python) · [Contact Us](mailto:hello@glasstape.ai)
-
 </div>
