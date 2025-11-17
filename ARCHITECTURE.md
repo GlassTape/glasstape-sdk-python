@@ -16,19 +16,19 @@ GlassTape follows these core principles:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Application Layer                        │
+│                     Application Layer                       │
 │  (LangChain, LangGraph, Custom Agents, AWS Strands)         │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              GlassTape Decorator Layer                       │
-│                @govern, @monitor                             │
+│              GlassTape Decorator Layer                      │
+│                @govern, @monitor                            │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   Core Engine                                │
+│                   Core Engine                               │
 │  ┌─────────────┬──────────────┬──────────────────────────┐  │
 │  │   Config    │   Context    │      Router              │  │
 │  │  Manager    │   Manager    │   (Mode Dispatch)        │  │
@@ -37,19 +37,19 @@ GlassTape follows these core principles:
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Local Engine                                │
+│                  Local Engine                               │
 │  ┌─────────────┬──────────────┬──────────────────────────┐  │
-│  │  Policy     │  Parameter   │  CEL Evaluator          │  │
-│  │  Engine     │  Extraction  │  (Built-in)             │  │
+│  │  Policy     │  Parameter   │  CEL Evaluator           │  │
+│  │  Engine     │  Extraction  │  (Built-in)              │  │
 │  └─────────────┴──────────────┴──────────────────────────┘  │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              Security & Audit Layer                          │
+│              Security & Audit Layer                         │
 │  ┌─────────────┬──────────────┬──────────────────────────┐  │
-│  │   Agent     │  Crypto      │   Orchestration         │  │
-│  │  Identity   │  Operations  │   & Workflows           │  │
+│  │   Agent     │  Crypto      │   Orchestration          │  │
+│  │  Identity   │  Operations  │   & Workflows            │  │
 │  └─────────────┴──────────────┴──────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
 ```
