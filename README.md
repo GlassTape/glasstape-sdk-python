@@ -118,22 +118,44 @@ flowchart LR
 ### Architecture
 
 ```
-┌──────────────┐     ┌────────────┐     ┌─────────────┐
-│  LLM Agent   │──▶──│ GlassTape  │──▶──│   Tool/API  │
-│ (LangChain)  │     │   @govern  │     │ (DB, Pay)   │
-└──────────────┘     └────────────┘     └─────────────┘
-        │                   │
-        ▼                   ▼
-   Reasoning         Policy Evaluation
-                    + Cryptographic Receipt
+┌─────────────────────────────────────────────────────────────┐
+│                      AI Agent                               │
+│  (LangChain, LangGraph, CrewAI, Custom)                    │
+└─────────────────────┬───────────────────────────────────────┘
+                      │ Tool Call
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 @govern Decorator                            │
+│  Intercepts call → Extracts parameters → Gets context     │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 Policy Engine                               │
+│  Load policy → Evaluate CEL conditions → ALLOW/DENY      │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│              Decision Enforcement                           │
+│  ALLOW: Execute tool │ DENY: Block + Log + Sign receipt   │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**Key Components:**
-- **Decorators** (`@govern`, `@monitor`) — User-facing API
-- **Policy Engine** — Cerbos-compatible evaluation with caching
-- **Context Management** — Thread-safe context injection
-- **Cryptography** — Ed25519 signing for non-repudiation
-- **Mode Router** — Extensible architecture (local, platform modes)
+**Governance Flow:**
+
+1. **AI Agent** calls `process_payment(1000, "vendor")`
+2. **@govern decorator** intercepts and extracts parameters + context
+3. **Policy Engine** loads policy and evaluates CEL conditions
+4. **Decision** ALLOW executes tool, DENY blocks with signed audit log
+
+**Key Features:**
+- **Sub-10ms evaluation** with built-in CEL engine
+- **Framework agnostic** works with any Python function
+- **Fail-closed security** defaults to DENY on errors
+- **Cryptographic receipts** for compliance audits
+
+> 📚 **Detailed Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md) for complete technical documentation.
 
 ---
 
@@ -217,7 +239,7 @@ def get_customer_data(customer_id: str, fields: list):
 
 ### 🛡️ Prompt Injection Prevention
 
-**Problem:** AI agents can be tricked into calling functions with unauthorized parameters through clever prompting.
+**Problem:** AI agents can be tricked into calling functions with unauthorized parameters through clever prompting.pting.
 
 ```python
 set_context(
