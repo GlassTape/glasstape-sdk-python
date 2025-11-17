@@ -104,17 +104,6 @@ resourcePolicy:
 
 ## 🏗️ How It Works
 
-```mermaid
-flowchart LR
-    A[AI Agent] -->|Tool Call| B["@govern Decorator"]
-    B -->|Extract Params| C[Policy Engine]
-    C -->|Evaluate| D{Cerbos Compatible}
-    D -->|Allow| E[Execute Tool]
-    D -->|Deny| F[Block + Log]
-    E --> G[Sign Receipt]
-    F --> G
-```
-
 ### Architecture
 
 ```
