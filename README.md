@@ -120,25 +120,25 @@ flowchart LR
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      AI Agent                               │
-│  (LangChain, LangGraph, CrewAI, Custom)                    │
+│  (LangChain, LangGraph, CrewAI, Custom)                     │
 └─────────────────────┬───────────────────────────────────────┘
                       │ Tool Call
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 @govern Decorator                            │
-│  Intercepts call → Extracts parameters → Gets context     │
+│                 @govern Decorator                           │
+│  Intercepts call → Extracts parameters → Gets context       │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                 Policy Engine                               │
-│  Load policy → Evaluate CEL conditions → ALLOW/DENY      │
+│  Load policy → Evaluate CEL conditions → ALLOW/DENY         │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
 │              Decision Enforcement                           │
-│  ALLOW: Execute tool │ DENY: Block + Log + Sign receipt   │
+│  ALLOW: Execute tool │ DENY: Block + Log + Sign receipt     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
