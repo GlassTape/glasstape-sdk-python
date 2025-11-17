@@ -1,0 +1,58 @@
+{
+  "policy_id": "data.customer_lookup.v1",
+  "version": "1.0",
+  "description": "Customer data lookup policy with role-based access control",
+  "extraction_bindings": {
+    "bindings": [
+      {
+        "path": "input.resource.attr.customer_id",
+        "sources": [
+          {"type": "arg", "name": "customer_id"}
+        ],
+        "required": true
+      },
+      {
+        "path": "input.principal.attr.user_role",
+        "sources": [
+          {"type": "context", "name": "user_role"}
+        ],
+        "required": true
+      }
+    ]
+  },
+  "icp_schema": {
+    "resource": {
+      "kind": "customer_record",
+      "attr": {
+        "customer_id": {
+          "type": "string",
+          "description": "Customer identifier"
+        }
+      }
+    },
+    "principal": {
+      "attr": {
+        "user_role": {
+          "type": "string",
+          "description": "User role (operator, analyst, admin)"
+        }
+      }
+    }
+  },
+  "rules": {
+    "deny": [
+      {
+        "id": "deny-unauthorized-access",
+        "condition": "user_role not in ['analyst', 'admin']",
+        "reason": "Only analysts and admins can access customer records"
+      }
+    ],
+    "allow": [
+      {
+        "id": "allow-analyst-access",
+        "condition": "user_role in ['analyst', 'admin']",
+        "reason": "Analysts and admins can access customer data"
+      }
+    ]
+  }
+}

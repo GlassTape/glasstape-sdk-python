@@ -1,0 +1,37 @@
+{
+  "policy_id": "analytics.data_access.v1",
+  "version": "1.0",
+  "description": "Monitoring policy for data access analytics",
+  "extraction_bindings": {
+    "bindings": [
+      {
+        "path": "input.resource.attr.user_id",
+        "sources": [
+          {"type": "arg", "name": "user_id"}
+        ],
+        "required": true
+      }
+    ]
+  },
+  "icp_schema": {
+    "resource": {
+      "kind": "user_data",
+      "attr": {
+        "user_id": {
+          "type": "string",
+          "description": "User identifier being accessed"
+        }
+      }
+    }
+  },
+  "rules": {
+    "allow": [
+      {
+        "id": "allow-all-monitoring",
+        "condition": "",
+        "reason": "Monitoring is allowed for all data access"
+      }
+    ]
+  }
+}
+

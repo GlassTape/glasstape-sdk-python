@@ -1,0 +1,63 @@
+{
+  "policy_id": "external.api_call.v1",
+  "version": "1.0",
+  "description": "External API call policy with rate limiting and role-based access",
+  "extraction_bindings": {
+    "bindings": [
+      {
+        "path": "input.resource.attr.endpoint",
+        "sources": [
+          {"type": "arg", "name": "endpoint"}
+        ],
+        "required": true
+      },
+      {
+        "path": "input.principal.attr.user_role",
+        "sources": [
+          {"type": "context", "name": "user_role"}
+        ],
+        "required": true
+      }
+    ]
+  },
+  "icp_schema": {
+    "resource": {
+      "kind": "api_call",
+      "attr": {
+        "endpoint": {
+          "type": "string",
+          "description": "API endpoint URL"
+        }
+      }
+    },
+    "principal": {
+      "attr": {
+        "user_role": {
+          "type": "string",
+          "description": "User role (operator, analyst, admin)"
+        }
+      }
+    }
+  },
+  "rules": {
+    "deny": [
+      {
+        "id": "deny-operator-api-access",
+        "condition": "user_role == 'operator'",
+        "reason": "Operators are not allowed to make external API calls"
+      },
+      {
+        "id": "deny-sensitive-endpoints",
+        "condition": "endpoint contains 'admin' || endpoint contains 'internal'",
+        "reason": "Access to sensitive endpoints is restricted"
+      }
+    ],
+    "allow": [
+      {
+        "id": "allow-analyst-api-access",
+        "condition": "user_role in ['analyst', 'admin']",
+        "reason": "Analysts and admins can make external API calls"
+      }
+    ]
+  }
+}

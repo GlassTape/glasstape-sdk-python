@@ -1,0 +1,75 @@
+{
+  "policy_id": "finance.payments.v1",
+  "version": "1.0",
+  "description": "Payment processing policy with role-based amount limits",
+  "extraction_bindings": {
+    "bindings": [
+      {
+        "path": "input.resource.attr.amount",
+        "sources": [
+          {"type": "arg", "name": "amount"}
+        ],
+        "required": true
+      },
+      {
+        "path": "input.resource.attr.recipient",
+        "sources": [
+          {"type": "arg", "name": "recipient"}
+        ],
+        "required": true
+      },
+      {
+        "path": "input.principal.attr.user_role",
+        "sources": [
+          {"type": "context", "name": "user_role"}
+        ],
+        "required": true
+      }
+    ]
+  },
+  "icp_schema": {
+    "resource": {
+      "kind": "payment",
+      "attr": {
+        "amount": {
+          "type": "number",
+          "description": "Payment amount in USD"
+        },
+        "recipient": {
+          "type": "string",
+          "description": "Payment recipient identifier"
+        }
+      }
+    },
+    "principal": {
+      "attr": {
+        "user_role": {
+          "type": "string",
+          "description": "User role (analyst, manager, admin)"
+        }
+      }
+    }
+  },
+  "rules": {
+    "deny": [
+      {
+        "id": "deny-large-payments-for-analysts",
+        "condition": "amount > 50 && user_role == 'analyst'",
+        "reason": "Analysts cannot process payments over $50"
+      }
+    ],
+    "allow": [
+      {
+        "id": "allow-small-payments",
+        "condition": "amount <= 50",
+        "reason": "Small payments under $50 are allowed for all roles"
+      },
+      {
+        "id": "allow-admin-all-payments",
+        "condition": "user_role == 'admin'",
+        "reason": "Admins can process payments of any amount"
+      }
+    ]
+  }
+}
+
