@@ -228,7 +228,7 @@ def get_customer_data(customer_id: str, fields: list):
 
 ### 🛡️ Prompt Injection Prevention
 
-**Problem:** AI agents can be tricked into calling functions with unauthorized parameters through clever prompting.pting.
+**Problem:** AI agents can be tricked into calling functions with unauthorized parameters through clever prompting.
 
 ```python
 set_context(
